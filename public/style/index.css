@@ -1,0 +1,131 @@
+html {
+  height: 100%;
+}
+body {
+  margin:0;
+  height:100vh;
+  width:100vw;
+}
+.left-panel {
+  float: left;
+  width: 29vw;
+  height: 100vh;
+  border-right: 1px solid #e6e6e6;
+}
+.game-list {
+  margin: 0;
+  padding: 0;
+}
+.game-list-item {
+  list-style-type: none;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  padding: 10px;
+}
+.delete-game-button, .play-game-button {
+  width: 100px;
+  margin: 5px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  padding: 10px;
+}
+.new-game-button:hover, .delete-game-button:hover, .play-game-button:hover  {
+  cursor: pointer;
+}
+.new-game-button {
+  display: block;
+  text-align: center;
+  margin: 10px auto;
+}
+.right-panel {
+  float: right;
+  width: 70vw;
+  height: 100vh;
+}
+.container {
+  display: inline-block;
+  position: relative;
+  width: 50%;
+}
+.dummy {
+  margin-top: 100%;
+}
+.table-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.table {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+}
+.table td:hover {
+  cursor: crosshair;
+}
+.key-header {
+  padding-left: 20px;
+}
+.key-container {
+  width: 100%;
+}
+.top-key-div, .bottom-key-div {
+  display: block;
+}
+.key-icon {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.key-description {
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  padding-left: 10px;
+  line-height: 50px;
+  vertical-align: top;
+}
+.unknown {
+  background-color: #e6f7ff;
+}
+.player-ship {
+  background-color: #cccccc;
+}
+.player-ship-hit {
+  background-color: #cccccc;
+  background-image: url('../images/explosion_yellow.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.enemy-ship-hit {
+  background-color: #737373;
+  background-image: url('../images/explosion_yellow.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.player-miss {
+  background-color: #80d7ff;
+  background-image: url('../images/explosion_blue.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.enemy-miss {
+  background-color: #00aaff;
+  background-image: url('../images/explosion_blue.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.player-ship-sunk {
+  background-color: #cccccc;
+  background-image: url('../images/skull.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.enemy-ship-sunk {
+  background-color: #737373;
+  background-image: url('../images/skull.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
