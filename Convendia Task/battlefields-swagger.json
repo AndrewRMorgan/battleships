@@ -1,0 +1,469 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2017-04-27T10:35:16Z",
+    "title": "battleships"
+  },
+  "host": "zyqh9s9xt4.execute-api.eu-west-1.amazonaws.com",
+  "basePath": "/prod",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/battle": {
+      "get": {
+        "description": "Returns the list of current battle IDs",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/battleIds"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Creates a new battle",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/battlefieldInfo"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/battle/{battleId}": {
+      "get": {
+        "description": "Retrieves information about this battleId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "battleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/battlefieldInfo"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "battleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/battle/{battleId}/fire": {
+      "post": {
+        "description": "Fires a missile",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "battleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "fireRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/fireRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/fireResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Methods": {
+                "type": "string"
+              },
+              "Access-Control-Allow-Headers": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "x-api-key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Empty": {
+      "type": "object",
+      "title": "Empty Schema"
+    },
+    "battleIds": {
+      "type": "object",
+      "properties": {
+        "battles": {
+          "type": "array",
+          "description": "list of battle id and status",
+          "items": {
+            "type": "object",
+            "properties": {
+              "battleId": {
+                "type": "string",
+                "description": "The ID of the battle"
+              },
+              "gameStatus": {
+                "type": "string",
+                "description": "The status of the game",
+                "enum": [
+                  "ONGOING",
+                  "PLAYER_WON",
+                  "ENEMY_WON"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "title": "battleIds",
+      "description": "list of battle id and status"
+    },
+    "fireResponse": {
+      "type": "object",
+      "properties": {
+        "battleId": {
+          "type": "string",
+          "description": "the id of the battle"
+        },
+        "battle": {
+          "type": "object",
+          "description": "detail about the battle",
+          "properties": {
+            "battlefield": {
+              "type": "array",
+              "description": "cell status on the battefield; 0=EMPTY, 1=PLAYER_SHIP, 2=ENEMY_SHIP, 3=PLAYER_SHIP_HIT, 4=ENEMY_SHIP_HIT, 5=PLAYER_MISS, 6=ENEMY_MISS, 7=PLAYER_SHIP_SUNK, 8=ENEMY_SHIP_SUNK",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            },
+            "playerShips": {
+              "type": "array",
+              "description": "Different representation of the players ships. This is the same information as in the battefield object",
+              "items": {
+                "type": "object",
+                "description": "A player's ship",
+                "properties": {
+                  "start": {
+                    "type": "array",
+                    "description": "The start of the ship. For Vertical ship this is always the part of the ship with the smalest row number. For horizontal ship this is always the part with the lowest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "end": {
+                    "type": "array",
+                    "description": "The end of the ship. For Vertical ship this is always the part of the ship with the highest row number. For horizontal ship this is always the part with the highest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "enemyShips": {
+              "type": "array",
+              "description": "Different representation of the enemy ships. This is the same information as in the battefield object. An enemy ship is only added to the list once its sunk (i.e. fully hit), hence no cheating!",
+              "items": {
+                "type": "object",
+                "description": "An enemy's ship",
+                "properties": {
+                  "start": {
+                    "type": "array",
+                    "description": "The start of the ship. For Vertical ship this is always the part of the ship with the smalest row number. For horizontal ship this is always the part with the lowest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "end": {
+                    "type": "array",
+                    "description": "The end of the ship. For Vertical ship this is always the part of the ship with the highest row number. For horizontal ship this is always the part with the highest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "gameStatus": {
+              "type": "string",
+              "description": "The status of the game",
+              "enum": [
+                "ONGOING",
+                "PLAYER_WON",
+                "ENEMY_WON"
+              ]
+            }
+          }
+        },
+        "fireEvent": {
+          "type": "object",
+          "description": "Information about the missile sent by the user for this request",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "HIT or MISS",
+              "enum": [
+                "HIT",
+                "MISS"
+              ]
+            },
+            "coordinate": {
+              "type": "array",
+              "description": "Coordinates of the missile",
+              "items": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "retaliationEvent": {
+          "type": "object",
+          "description": "Information about the missile sent by the computer as a retaliation for this request",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "HIT or MISS",
+              "enum": [
+                "HIT",
+                "MISS"
+              ]
+            },
+            "coordinate": {
+              "type": "array",
+              "description": "Coordinates of the missile",
+              "items": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "title": "fireResponse",
+      "description": "Reponse from a fire event"
+    },
+    "battlefieldInfo": {
+      "type": "object",
+      "properties": {
+        "battleId": {
+          "type": "string",
+          "description": "the id of the battle"
+        },
+        "battle": {
+          "type": "object",
+          "description": "detail about the battlefield",
+          "properties": {
+            "battlefield": {
+              "type": "array",
+              "description": "cell status on the battefield; 0=EMPTY, 1=PLAYER_SHIP, 2=ENEMY_SHIP, 3=PLAYER_SHIP_HIT, 4=ENEMY_SHIP_HIT, 5=PLAYER_MISS, 6=ENEMY_MISS, 7=PLAYER_SHIP_SUNK, 8=ENEMY_SHIP_SUNK",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            },
+            "playerShips": {
+              "type": "array",
+              "description": "Different representation of the players ships. This is the same information as in the battefield object",
+              "items": {
+                "type": "object",
+                "description": "A player's ship",
+                "properties": {
+                  "start": {
+                    "type": "array",
+                    "description": "The start of the ship. For Vertical ship this is always the part of the ship with the smalest row number. For horizontal ship this is always the part with the lowest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "end": {
+                    "type": "array",
+                    "description": "The end of the ship. For Vertical ship this is always the part of the ship with the highest row number. For horizontal ship this is always the part with the highest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "enemyShips": {
+              "type": "array",
+              "description": "Different representation of the enemy ships. This is the same information as in the battefield object. An enemy ship is only added to the list once its sunk (i.e. fully hit), hence no cheating!",
+              "items": {
+                "type": "object",
+                "description": "An enemy's ship",
+                "properties": {
+                  "start": {
+                    "type": "array",
+                    "description": "The start of the ship. For Vertical ship this is always the part of the ship with the smalest row number. For horizontal ship this is always the part with the lowest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "end": {
+                    "type": "array",
+                    "description": "The end of the ship. For Vertical ship this is always the part of the ship with the highest row number. For horizontal ship this is always the part with the highest column number. First element is the row index (starting from 0), second element is the column index starting from 0",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "gameStatus": {
+              "type": "string",
+              "description": "The status of the game",
+              "enum": [
+                "ONGOING",
+                "PLAYER_WON",
+                "ENEMY_WON"
+              ]
+            }
+          }
+        }
+      },
+      "title": "battlefieldInfo",
+      "description": "Coordinates for shooting"
+    },
+    "fireRequest": {
+      "type": "object",
+      "properties": {
+        "coordinate": {
+          "type": "array",
+          "description": "Coordinates for the shooting. First element is the row index (starting from 0), second element is the column index starting from 0",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "title": "fireRequest",
+      "description": "Coordinates for shooting"
+    }
+  }
+}
