@@ -6,11 +6,11 @@ const GameStatus = ({gameStatus}) => {
   }
 
   if (gameStatus.battle.gameStatus === "ONGOING"){
-    return <div>Game Status: Ongoing</div>
+    return <div className='game-status'>Game Status: Ongoing</div>
   } else if (gameStatus.battle.gameStatus === "PLAYER_WON") {
-    return <div>Game Status: Player Won</div>
+    return <div className='game-status'>Game Status: Player Won</div>
   } else if (gameStatus.battle.gameStatus === "ENEMY_WON") {
-    return <div>Game Status: Enemy Won</div>
+    return <div className='game-status'>Game Status: Enemy Won</div>
   }
 }
 

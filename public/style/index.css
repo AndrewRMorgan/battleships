@@ -8,7 +8,7 @@ body {
 }
 .left-panel {
   float: left;
-  width: 29vw;
+  min-width: 275px;
   height: 100vh;
   border-right: 1px solid #e6e6e6;
 }
@@ -19,12 +19,11 @@ body {
 .game-list-item {
   list-style-type: none;
   border: 1px solid #e6e6e6;
-  border-radius: 5px;
   padding: 10px;
 }
 .delete-game-button, .play-game-button {
   width: 100px;
-  margin: 5px;
+  margin: 5px 10px;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
   padding: 10px;
@@ -34,18 +33,24 @@ body {
 }
 .new-game-button {
   display: block;
+  width: 150px;
   text-align: center;
   margin: 10px auto;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  padding: 10px;
 }
 .right-panel {
-  float: right;
-  width: 70vw;
+  float: left;
   height: 100vh;
 }
 .container {
   display: inline-block;
   position: relative;
   width: 50%;
+  min-width: 515px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 .dummy {
   margin-top: 100%;
@@ -61,17 +66,21 @@ body {
   height: 100%;
   width: 100%;
   border: 1px solid #e6e6e6;
+  border-radius: 5px;
 }
 .table td:hover {
   cursor: crosshair;
 }
-.key-header {
-  padding-left: 20px;
-}
 .key-container {
-  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 10px;
+  margin-left: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  padding: 0px 20px 20px 20px;
 }
-.top-key-div, .bottom-key-div {
+.key-pair {
   display: block;
 }
 .key-icon {
@@ -81,11 +90,13 @@ body {
 }
 .key-description {
   display: inline-block;
-  width: 150px;
   height: 50px;
   padding-left: 10px;
   line-height: 50px;
   vertical-align: top;
+}
+.game-status {
+  margin-left: 10px;
 }
 .unknown {
   background-color: #e6f7ff;

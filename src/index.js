@@ -114,8 +114,8 @@ class App extends Component {
         </div>
         <div className='right-panel'>
           <PlayScreen selectedGameId={this.state.selectedGameId} selectedGame={this.state.selectedGame} playerMove={fireMissle} />
-          <GameStatus gameStatus={this.state.selectedGame} />
           <Key />
+          <GameStatus gameStatus={this.state.selectedGame} />
         </div>
       </div>
     );
