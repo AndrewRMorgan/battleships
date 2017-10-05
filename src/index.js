@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GameList from './components/game_list';
@@ -98,22 +97,17 @@ class App extends Component {
   }
 
   render() {
-    const fetchGame = _.debounce((gameId) => { this.fetchGame(gameId) }, 300);
-    const fireMissle = _.debounce((gameId, position) => { this.fireMissle(gameId, position) }, 300);
-    const createNewGame = _.debounce(() => { this.createNewGame() }, 300);
-    const onGameDelete = _.debounce((gameId) => { this.onGameDelete(gameId) }, 300);
-
     return (
       <div>
         <div className='left-panel'>
           <GameList
-            onGameSelect={fetchGame}
+            onGameSelect={gameId => this.fetchGame(gameId)}
             games={this.state.games}
-            createNewGame={createNewGame}
-            onGameDelete={onGameDelete} />
+            createNewGame={() => this.createNewGame}
+            onGameDelete={gameId => this.onGameDelete(gameId)} />
         </div>
         <div className='right-panel'>
-          <PlayScreen selectedGameId={this.state.selectedGameId} selectedGame={this.state.selectedGame} playerMove={fireMissle} />
+          <PlayScreen selectedGameId={this.state.selectedGameId} selectedGame={this.state.selectedGame} playerMove={(gameId, position) => this.fireMissle(gameId, position)} />
           <Key />
           <GameStatus gameStatus={this.state.selectedGame} />
         </div>
